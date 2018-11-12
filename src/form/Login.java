@@ -38,8 +38,10 @@ public class Login {
             Users users=new Query<Users>(Users.class).getAll().stream()
                     .filter(u->u.login.equals(labelLogin.getText()) && u.password.equals(labelPassword.getText()))
                     .findFirst().orElseGet(Users::new);
-            if(users.role.equals("admin") || users.role.equals("expert"))
+            if(users.role.equals("admin") || users.role.equals("expert")) {
+                stage.hide();
                 new Menu();
+            }
             else
                 new Alert(Alert.AlertType.ERROR, "Вам не разрешено входить!").show();
         } catch (Exception e) {

@@ -10,13 +10,8 @@ public class Connector {
 
     public static Connection getConnection() throws SQLException, ClassNotFoundException{
         if(connection==null) {
-            Class.forName("com.mysql.jdbc.Driver" );
-            Properties properties = new Properties();
-            properties.setProperty("user", "root2" );
-            properties.setProperty("password", "qwerty");
-            properties.setProperty("characterEncoding", "utf8" );
-            properties.setProperty("useSSL", "false" );
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ForJuniorSkills", properties);
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ForJuniorSkills", "root2", "qwerty");
         }
         return connection;
     }
