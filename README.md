@@ -1,4 +1,4 @@
 # ForJuniorSkills
-PP Project
+AP Project
 
 2018 Bukatkin Witalij
