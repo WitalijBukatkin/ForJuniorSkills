@@ -1,4 +1,4 @@
-package domain;
+package entities;
 
 public abstract class NamedEntity extends BaseEntity{
     public String name;

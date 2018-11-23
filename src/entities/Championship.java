@@ -1,4 +1,4 @@
-package domain;
+package entities;
 
 public class Championship extends NamedEntity{
     public int sponsors;

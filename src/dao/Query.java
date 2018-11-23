@@ -1,17 +1,11 @@
 package dao;
 
-import javafx.embed.swing.SwingFXUtils;
+import entities.BaseEntity;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import util.Connector;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
+import util.ImageArray;
 import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.*;
@@ -41,7 +35,7 @@ public class Query<T> {
                 for (int i = 1; i <= metaData.getColumnCount(); i++) {
                     Field field=row.getClass().getField(metaData.getColumnName(i));
                     if(field.getType().getSimpleName().equals("Image"))
-                        field.set(row, SwingFXUtils.toFXImage(ImageIO.read(rs.getBinaryStream(i)), null));
+                        field.set(row, ImageArray.ByteToImage(rs.getBinaryStream(i)));
                     else
                         field.set(row, rs.getObject(i));
                 }
@@ -59,25 +53,44 @@ public class Query<T> {
         return getAll().stream();
     }
 
-    public int insert(T table) throws Exception {
-        Statement statement=Connector.getConnection().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        try(ResultSet resultSet=statement.executeQuery(query)) {
+    public int insert(BaseEntity entity) throws Exception {
+        try(ResultSet resultSet=Connector.getStatement().executeQuery(query)) {
             resultSet.moveToInsertRow();
-            for (Field field : table.getClass().getFields()) {
-                if (field.get(table) instanceof Image) {
-                    BufferedImage bufferedImage = SwingFXUtils.fromFXImage((Image) field.get(table), null);
-                    try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-                        ImageIO.write(bufferedImage, "jpg", outputStream);
-                        resultSet.updateObject(field.getName(), new ByteArrayInputStream(outputStream.toByteArray()));
-                    }
-                } else {
-                    resultSet.updateObject(field.getName(), field.get(table));
+            for (Field field : entity.getClass().getFields()) {
+                if (field.get(entity) instanceof Image) {
+                    resultSet.updateObject(field.getName(), ImageArray.ImageToByte(field.get(entity)));
+                }
+                else {
+                    resultSet.updateObject(field.getName(), field.get(entity));
                 }
             }
             resultSet.insertRow();
             //getting generated id
             resultSet.last();
             return resultSet.getInt("id");
+        }
+    }
+
+    public void update(BaseEntity entity) throws Exception{
+        try(ResultSet resultSet=Connector.getStatement().executeQuery(query+" WHERE id="+entity.id)) {
+            if(resultSet.first()) {
+                for (Field field : entity.getClass().getFields()) {
+                    if (field.get(entity) instanceof Image) {
+                        resultSet.updateObject(field.getName(), ImageArray.ImageToByte(field.get(entity)));
+                    } else {
+                        resultSet.updateObject(field.getName(), field.get(entity));
+                    }
+                }
+                resultSet.updateRow();
+            }
+        }
+    }
+
+    public void delete(BaseEntity entity) throws Exception{
+        try(ResultSet resultSet=Connector.getStatement().executeQuery(query+" WHERE id="+entity.id)) {
+            if(resultSet.first()) {
+                resultSet.deleteRow();
+            }
         }
     }
 

@@ -1,8 +1,6 @@
 package util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 public class Connector {
@@ -14,5 +12,9 @@ public class Connector {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ForJuniorSkills", "root2", "qwerty");
         }
         return connection;
+    }
+
+    public static Statement getStatement() throws Exception{
+        return getConnection().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
     }
 }

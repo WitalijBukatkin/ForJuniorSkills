@@ -1,4 +1,4 @@
-package form;
+package view;
 
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import dao.Query;
-import domain.*;
+import entities.*;
 
 import java.io.File;
 import java.sql.Timestamp;
@@ -47,7 +47,7 @@ public class Registration {
     public Registration() {
         HBox hBox=new HBox(40);
         hBox.setPadding(new Insets(40));
-        stage.setScene(new Scene(hBox, 650, 600));
+        stage.setScene(new Scene(hBox, 750, 600));
 
         try {
             //left panel
@@ -84,17 +84,19 @@ public class Registration {
                             new Label("Photo:"), photoView, addPhoto);
 
             //right panel
-            VBox rightBox=new VBox(10);
+            HBox rightBox=new HBox(10);
             hBox.getChildren().add(rightBox);
 
             //box competence
+            VBox boxCompetences=new VBox(10);
             rightBox.getChildren()
-                    .add(new Label("Competences"));
+                    .addAll(new Label("Competences"),
+                            new ScrollPane(boxCompetences));
 
             competences=new Query<Competence>(Competence.class).getAll().stream()
                     .collect(Collectors.toMap(i -> i.id, s -> new CheckBox(s.name)));
             competences.values()
-                    .forEach(rightBox.getChildren()::add);
+                    .forEach(boxCompetences.getChildren()::add);
 
             //buttons
             Button apply = new Button("Apply");
@@ -120,7 +122,8 @@ public class Registration {
             users.login=login.getText();
             users.password=password.getText();
             users.role="junior";
-            int userId=new Query<>(Users.class).insert(users);
+            int userId=new Query<>(Users.class)
+                    .insert(users);
 
             Juniors juniors=new Juniors();
             juniors.firstName=firstName.getText();

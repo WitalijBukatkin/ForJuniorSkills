@@ -1,4 +1,4 @@
-package domain;
+package entities;
 
 public class ShowJuniors extends Juniors {
     public String login;

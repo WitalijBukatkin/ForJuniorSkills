@@ -1,4 +1,4 @@
-package domain;
+package entities;
 
 public class ToolboxTest extends BaseEntity{
     public int toolbox;

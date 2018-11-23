@@ -1,4 +1,4 @@
-package domain;
+package entities;
 
 public class CompetenceExperts extends BaseEntity {
     public int competence;

@@ -1,4 +1,4 @@
-package domain;
+package entities;
 
 public class Users extends BaseEntity{
     public String login;
@@ -15,5 +15,15 @@ public class Users extends BaseEntity{
 
     public String getType() {
         return role;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

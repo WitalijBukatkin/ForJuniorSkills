@@ -1,4 +1,4 @@
-package form;
+package view;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,6 +19,7 @@ public class Menu {
         Button buttonAdd=new Button("Добавить нового участника");
         buttonAdd.setOnAction(e->new Registration());
         Button buttonFind=new Button("Найти участника");
+        buttonFind.setOnAction(e->new Search());
 
         pane.getChildren()
                 .addAll(buttonAll, buttonAdd, buttonFind);

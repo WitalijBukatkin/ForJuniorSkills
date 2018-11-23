@@ -1,7 +1,6 @@
-import form.ShowAll;
+import view.Login;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import form.Login;
 
 public class Main extends Application {
     public static void main(String[] args){
@@ -9,7 +8,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage){
+    public void start(Stage primaryStage) throws Exception{
         new Login();
     }
 }

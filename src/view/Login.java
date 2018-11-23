@@ -1,7 +1,7 @@
-package form;
+package view;
 
 import dao.Query;
-import domain.Users;
+import entities.Users;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
@@ -33,6 +33,7 @@ public class Login {
 
         stage.show();
     }
+
     private void onLoginClick(){
         try {
             Users users=new Query<Users>(Users.class).getAll().stream()

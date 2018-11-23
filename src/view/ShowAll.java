@@ -1,7 +1,7 @@
-package form;
+package view;
 
 import dao.Query;
-import domain.ShowJuniors;
+import entities.ShowJuniors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;

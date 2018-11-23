@@ -1,6 +1,6 @@
-package domain;
+package entities;
 
-public class Experts extends NamedEntity{
+public class Sponsors extends NamedEntity{
     public int user;
 
     public int getUser() {

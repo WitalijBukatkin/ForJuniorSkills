@@ -1,4 +1,4 @@
-package domain;
+package entities;
 
 public abstract class BaseEntity {
     public int id;
