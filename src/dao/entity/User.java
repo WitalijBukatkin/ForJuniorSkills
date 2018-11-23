@@ -1,4 +1,4 @@
-package entity;
+package dao.entity;
 
 public class User extends BaseEntity{
     public String login;

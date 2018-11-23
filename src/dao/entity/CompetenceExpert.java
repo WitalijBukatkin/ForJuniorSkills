@@ -1,4 +1,4 @@
-package entity;
+package dao.entity;
 
 public class CompetenceExpert extends BaseEntity {
     public Integer competence;

@@ -1,4 +1,4 @@
-package entity;
+package dao.entity;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

@@ -14,12 +14,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import dao.Query;
-import entity.*;
+import dao.entity.*;
 
-import java.io.File;
 import java.sql.Date;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class Registration {

@@ -1,7 +1,7 @@
 package view;
 
 import dao.Query;
-import entity.User;
+import dao.entity.User;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
