@@ -1,13 +1,13 @@
-package entities;
+package entity;
 
 import java.io.ByteArrayInputStream;
 
-public class Works extends NamedEntity{
-    public int junior;
+public class Work extends NamedEntity{
+    public Integer junior;
     public ByteArrayInputStream data;
-    public int Raiting;
+    public Integer Raiting;
 
-    public int getJunior() {
+    public Integer getJunior() {
         return junior;
     }
 
@@ -15,7 +15,7 @@ public class Works extends NamedEntity{
         return data;
     }
 
-    public int getRaiting() {
+    public Integer getRaiting() {
         return Raiting;
     }
 }

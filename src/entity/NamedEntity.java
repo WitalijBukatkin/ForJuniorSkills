@@ -1,4 +1,4 @@
-package entities;
+package entity;
 
 public abstract class NamedEntity extends BaseEntity{
     public String name;

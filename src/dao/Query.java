@@ -1,6 +1,6 @@
 package dao;
 
-import entities.BaseEntity;
+import entity.BaseEntity;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;

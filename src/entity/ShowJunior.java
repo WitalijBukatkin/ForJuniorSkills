@@ -1,6 +1,6 @@
-package entities;
+package entity;
 
-public class ShowJuniors extends Juniors {
+public class ShowJunior extends Junior {
     public String login;
     public String password;
 

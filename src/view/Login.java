@@ -1,7 +1,7 @@
 package view;
 
 import dao.Query;
-import entities.Users;
+import entity.User;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
@@ -17,11 +17,12 @@ public class Login {
         stage = new Stage();
         FlowPane pane=new FlowPane();
 
-        stage.setScene(new Scene(pane, 200, 200));
+        stage.setScene(new Scene(pane, 170, 120));
         stage.setTitle("Auth");
 
         Button buttonLogin=new Button("Login");
-        buttonLogin.setOnAction(e->onLoginClick());
+        buttonLogin.setOnAction(e -> onLoginClick());
+        labelPassword.setOnAction(e -> onLoginClick());
 
         Button buttonCancel=new Button("Cancel");
         buttonCancel.setOnAction(e->stage.close());
@@ -36,10 +37,10 @@ public class Login {
 
     private void onLoginClick(){
         try {
-            Users users=new Query<Users>(Users.class).getAll().stream()
+            User user =new Query<User>(User.class).getAll().stream()
                     .filter(u->u.login.equals(labelLogin.getText()) && u.password.equals(labelPassword.getText()))
-                    .findFirst().orElseGet(Users::new);
-            if(users.role.equals("admin") || users.role.equals("expert")) {
+                    .findFirst().orElseGet(User::new);
+            if(user.role.equals("admin") || user.role.equals("expert")) {
                 stage.hide();
                 new Menu();
             }

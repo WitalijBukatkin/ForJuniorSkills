@@ -14,12 +14,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import dao.Query;
-import entities.*;
+import entity.*;
 
 import java.io.File;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.sql.Date;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -30,19 +28,19 @@ public class Registration {
     //left panel
     private TextField firstName=new TextField();
     private TextField lastName=new TextField();
-    private RadioButton sexMen=new RadioButton("Men");
-    private RadioButton sexWoman=new RadioButton("Woman");
+    private ComboBox<String> sex=new ComboBox<>(
+            FXCollections.observableArrayList("Men", "Woman"));
     private DatePicker birthday=new DatePicker();
     private ComboBox<Country> country=new ComboBox<>();
     private TextField email=new TextField();
     private TextField school=new TextField();
     private ImageView photoView=new ImageView();
-    private AtomicReference<File> photoFile=new AtomicReference<>();
 
     //right panel
     private TextField login=new TextField();
     private PasswordField password=new PasswordField();
-    private Map<Integer, CheckBox> competences;
+    private Map<Integer, CheckBox> sponsors;
+    private ComboBox<Competence> competence=new ComboBox<>();
 
     public Registration() {
         HBox hBox=new HBox(40);
@@ -54,49 +52,44 @@ public class Registration {
             VBox leftBox=new VBox(10);
             hBox.getChildren().add(leftBox);
 
-            ToggleGroup toggleGroup = new ToggleGroup();
-            sexMen.setToggleGroup(toggleGroup);
-            sexMen.setSelected(true);
-            sexWoman.setToggleGroup(toggleGroup);
-
-            Button addPhoto=new Button("Choose");
-            addPhoto.setOnAction(e -> {
-                FileChooser fileChooser=new FileChooser();
-                photoFile.set(fileChooser.showOpenDialog(stage));
-                if (photoFile.get() != null) {
-                    photoView.setImage(new Image(photoFile.get().toURI().toString()));
-                    photoView.setFitWidth(100);
-                    photoView.setFitHeight(100);
-                }
-            });
-
             country.setItems(FXCollections
                     .observableArrayList(new Query<Country>(Country.class).getAll()));
 
             leftBox.getChildren()
                     .addAll(new Label("FirstName:"), firstName,
                             new Label("LastName:"), lastName,
-                            new Label("Sex:"), sexMen, sexWoman,
+                            new Label("Sex:"), sex,
                             new Label("Birthday:"), birthday,
                             new Label("Country:"), country,
                             new Label("Email:"), email,
-                            new Label("School:"), school,
-                            new Label("Photo:"), photoView, addPhoto);
+                            new Label("School:"), school);
 
             //right panel
-            HBox rightBox=new HBox(10);
+            VBox rightBox=new VBox(10);
             hBox.getChildren().add(rightBox);
 
-            //box competence
-            VBox boxCompetences=new VBox(10);
-            rightBox.getChildren()
-                    .addAll(new Label("Competences"),
-                            new ScrollPane(boxCompetences));
+            competence.setItems(FXCollections
+                    .observableArrayList(new Query<Competence>(Competence.class).getAll()));
 
-            competences=new Query<Competence>(Competence.class).getAll().stream()
+            Button addPhoto=new Button("Choose");
+            addPhoto.setOnAction(e -> {
+                FileChooser fileChooser = new FileChooser();
+                photoView.setImage(new Image(fileChooser.showOpenDialog(stage).toURI().toString()));
+                photoView.setFitWidth(100);
+                photoView.setFitHeight(100);
+            });
+
+            //box sponsors
+            VBox boxSponsors=new VBox(10);
+            rightBox.getChildren()
+                    .addAll(new Label("Sponsor"),
+                            new ScrollPane(boxSponsors));
+
+            //TODO: full query use for fix NullPointerException, because fields 'logo' is empty in Sponsor table
+            sponsors=new Query<Sponsor>(Sponsor.class, "SELECT id, name FROM Sponsor").getAll().stream()
                     .collect(Collectors.toMap(i -> i.id, s -> new CheckBox(s.name)));
-            competences.values()
-                    .forEach(boxCompetences.getChildren()::add);
+            sponsors.values()
+                    .forEach(boxSponsors.getChildren()::add);
 
             //buttons
             Button apply = new Button("Apply");
@@ -105,6 +98,9 @@ public class Registration {
             cancel.setOnAction(e -> stage.close());
 
             rightBox.getChildren().addAll(
+                    new Label("Competence"), competence,
+                    new Label("Photo:"), photoView,
+                    addPhoto,
                     new Label("Login:"), login,
                     new Label("Password:"), password,
                     apply, cancel);
@@ -118,33 +114,34 @@ public class Registration {
 
     private void insert(){
         try {
-            Users users=new Users();
-            users.login=login.getText();
-            users.password=password.getText();
-            users.role="junior";
-            int userId=new Query<>(Users.class)
-                    .insert(users);
+            User user = new User();
+            user.login = login.getText();
+            user.password = password.getText();
+            user.role = "junior";
+            int userId = new Query<>(User.class)
+                    .insert(user);
 
-            Juniors juniors=new Juniors();
-            juniors.firstName=firstName.getText();
-            juniors.lastName=lastName.getText();
-            juniors.sex=sexMen.isSelected();
-            juniors.birthday=Timestamp.valueOf(LocalDateTime.of(birthday.getValue(), LocalTime.now()));
-            juniors.country=country.getSelectionModel().getSelectedItem().name;
-            juniors.email=email.getText();
-            juniors.school=school.getText();
-            juniors.photo=new Image(photoFile.get().toURI().toString());
-            juniors.user=userId;
-            int juniorId=new Query<>(Juniors.class)
-                    .insert(juniors);
+            Junior junior = new Junior();
+            junior.firstName = firstName.getText();
+            junior.lastName = lastName.getText();
+            junior.sex = sex.getSelectionModel().getSelectedIndex() == 0;
+            junior.birthday = new Date(birthday.getValue().toEpochDay());
+            junior.country = country.getSelectionModel().getSelectedItem().id;
+            junior.competence = competence.getSelectionModel().getSelectedItem().id;
+            junior.email = email.getText();
+            junior.school = school.getText();
+            junior.photo = photoView.getImage();
+            junior.user = userId;
+            int juniorId = new Query<>(Junior.class)
+                    .insert(junior);
 
-            for (Map.Entry<Integer, CheckBox> competence: competences.entrySet()) {
-                if(competence.getValue().isSelected()) {
-                    CompetenceJuniors competenceJuniors=new CompetenceJuniors();
-                    competenceJuniors.junior=juniorId;
-                    competenceJuniors.competence=competence.getKey();
-                    new Query<>(CompetenceJuniors.class)
-                            .insert(competenceJuniors);
+            for (Map.Entry<Integer, CheckBox> sponsor: sponsors.entrySet()) {
+                if(sponsor.getValue().isSelected()) {
+                    SponsorJunior competenceJunior = new SponsorJunior();
+                    competenceJunior.junior = juniorId;
+                    competenceJunior.sponsor = sponsor.getKey();
+                    new Query<>(SponsorJunior.class)
+                            .insert(competenceJunior);
                 }
             }
         } catch (Exception e) {

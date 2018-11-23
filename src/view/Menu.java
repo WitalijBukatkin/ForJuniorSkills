@@ -18,11 +18,9 @@ public class Menu {
         buttonAll.setOnAction(e->new ShowAll());
         Button buttonAdd=new Button("Добавить нового участника");
         buttonAdd.setOnAction(e->new Registration());
-        Button buttonFind=new Button("Найти участника");
-        buttonFind.setOnAction(e->new Search());
 
         pane.getChildren()
-                .addAll(buttonAll, buttonAdd, buttonFind);
+                .addAll(buttonAll, buttonAdd);
 
         stage.show();
     }

@@ -1,20 +1,22 @@
-package entities;
+package entity;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
-public class Juniors extends BaseEntity{
+public class Junior extends BaseEntity{
     public String firstName;
     public String lastName;
-    public boolean sex;
-    public Timestamp birthday;
-    public String country;
+    public Boolean sex;
+    public Date birthday;
+    public Integer country;
     public String email;
     public String school;
+    public Boolean toolbox;
     public Image photo;
-    public int user;
+    public Integer user;
+    public Integer competence;
 
     public String getFirstName() {
         return firstName;
@@ -24,15 +26,15 @@ public class Juniors extends BaseEntity{
         return lastName;
     }
 
-    public boolean isSex() {
+    public Boolean isSex() {
         return sex;
     }
 
-    public Timestamp getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public String getCountry() {
+    public Integer getCountry() {
         return country;
     }
 
@@ -44,6 +46,14 @@ public class Juniors extends BaseEntity{
         return school;
     }
 
+    public Boolean isToolbox() {
+        return toolbox;
+    }
+
+    public Integer getCompetence() {
+        return competence;
+    }
+
     public ImageView getPhoto() {
         ImageView imageView=new ImageView(photo);
         imageView.setFitHeight(30);
@@ -51,7 +61,7 @@ public class Juniors extends BaseEntity{
         return imageView;
     }
 
-    public int getUser() {
+    public Integer getUser() {
         return user;
     }
 }

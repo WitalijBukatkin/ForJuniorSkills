@@ -1,6 +1,6 @@
-package entities;
+package entity;
 
-public class Users extends BaseEntity{
+public class User extends BaseEntity{
     public String login;
     public String password;
     public String role;
@@ -19,7 +19,7 @@ public class Users extends BaseEntity{
 
     @Override
     public String toString() {
-        return "Users{" +
+        return "User{" +
                 "login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +

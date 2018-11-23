@@ -1,9 +1,9 @@
-package entities;
+package entity;
 
 public class Championship extends NamedEntity{
-    public int sponsors;
+    public Integer sponsors;
 
-    public int getSponsors() {
+    public Integer getSponsors() {
         return sponsors;
     }
 }
