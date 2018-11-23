@@ -32,13 +32,14 @@ public class Registration {
     private ComboBox<Country> country=new ComboBox<>();
     private TextField email=new TextField();
     private TextField school=new TextField();
-    private ImageView photoView=new ImageView();
 
     //right panel
-    private TextField login=new TextField();
-    private PasswordField password=new PasswordField();
+    private ImageView photoView=new ImageView();
+    private CheckBox toolbox=new CheckBox();
     private Map<Integer, CheckBox> sponsors;
     private ComboBox<Competence> competence=new ComboBox<>();
+    private TextField login=new TextField();
+    private PasswordField password=new PasswordField();
 
     public Registration() {
         HBox hBox=new HBox(40);
@@ -99,6 +100,7 @@ public class Registration {
                     new Label("Competence"), competence,
                     new Label("Photo:"), photoView,
                     addPhoto,
+                    new Label("Toolbox:"), toolbox,
                     new Label("Login:"), login,
                     new Label("Password:"), password,
                     apply, cancel);
@@ -126,6 +128,7 @@ public class Registration {
             junior.birthday = new Date(birthday.getValue().toEpochDay());
             junior.country = country.getSelectionModel().getSelectedItem().id;
             junior.competence = competence.getSelectionModel().getSelectedItem().id;
+            junior.toolbox=toolbox.isSelected();
             junior.email = email.getText();
             junior.school = school.getText();
             junior.photo = photoView.getImage();
