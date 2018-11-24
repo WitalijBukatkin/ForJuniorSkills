@@ -1,11 +1,9 @@
-package dao;
+package util;
 
-import dao.entity.BaseEntity;
+import entity.BaseEntity;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import util.Connector;
-import util.ImageArray;
 import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.*;

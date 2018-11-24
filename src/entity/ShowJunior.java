@@ -1,4 +1,4 @@
-package dao.entity;
+package entity;
 
 public class ShowJunior extends Junior {
     public String login;

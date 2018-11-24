@@ -1,7 +1,7 @@
 package view;
 
-import dao.Query;
-import dao.entity.ShowJunior;
+import util.Query;
+import entity.ShowJunior;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -14,13 +14,13 @@ import javafx.stage.Stage;
 
 import java.util.stream.Collectors;
 
-public class ShowAll {
+public class Head {
     private Stage stage=new Stage();
     private TextField firstName=new TextField();
     private TextField lastName=new TextField();
     private TableView<ShowJunior> tableView = new TableView<>();
 
-    public ShowAll(){
+    public Head(){
         FlowPane pane=new FlowPane();
         stage.setScene(new Scene(pane, 1000, 500));
 

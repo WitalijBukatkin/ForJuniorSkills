@@ -1,4 +1,4 @@
-package dao.entity;
+package entity;
 
 public class SponsorJunior extends BaseEntity{
     public Integer junior;

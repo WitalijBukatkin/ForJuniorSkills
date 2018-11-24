@@ -1,4 +1,4 @@
-package dao.entity;
+package entity;
 
 public abstract class NamedEntity extends BaseEntity{
     public String name;

@@ -1,4 +1,4 @@
-package dao.entity;
+package entity;
 
 public class Expert extends NamedEntity{
     public Integer user;

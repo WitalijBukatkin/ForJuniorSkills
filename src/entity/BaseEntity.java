@@ -1,4 +1,4 @@
-package dao.entity;
+package entity;
 
 public abstract class BaseEntity {
     public Integer id;

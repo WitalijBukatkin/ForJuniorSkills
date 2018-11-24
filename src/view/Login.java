@@ -1,10 +1,11 @@
 package view;
 
-import dao.Query;
-import dao.entity.User;
+import entity.User;
+import javafx.geometry.Insets;
+import javafx.scene.layout.GridPane;
+import util.Query;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
 public class Login {
@@ -15,10 +16,13 @@ public class Login {
 
     public Login() {
         stage = new Stage();
-        FlowPane pane=new FlowPane();
+        GridPane pane=new GridPane();
+        pane.setPadding(new Insets(20));
+        pane.setHgap(10);
+        pane.setVgap(10);
 
-        stage.setScene(new Scene(pane, 170, 120));
-        stage.setTitle("Auth");
+        stage.setScene(new Scene(pane));
+        stage.setTitle("Log in");
 
         Button buttonLogin=new Button("Login");
         buttonLogin.setOnAction(e -> onLoginClick());
@@ -27,10 +31,15 @@ public class Login {
         Button buttonCancel=new Button("Cancel");
         buttonCancel.setOnAction(e->stage.close());
 
-        pane.getChildren()
-                .addAll(new Label("Login"), labelLogin,
-                        new Label("Password"), labelPassword,
-                        buttonLogin, buttonCancel);
+        pane.addColumn(0,
+                new Label("Login"),
+                new Label("Password"),
+                buttonLogin);
+
+        pane.addColumn(1,
+                labelLogin,
+                labelPassword,
+                buttonCancel);
 
         stage.show();
     }
@@ -42,7 +51,7 @@ public class Login {
                     .findFirst().orElseGet(User::new);
             if(user.role.equals("admin") || user.role.equals("expert")) {
                 stage.hide();
-                new Menu();
+                new Head();
             }
             else
                 new Alert(Alert.AlertType.ERROR, "Вам не разрешено входить!").show();

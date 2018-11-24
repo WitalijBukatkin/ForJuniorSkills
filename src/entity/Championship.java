@@ -1,4 +1,4 @@
-package dao.entity;
+package entity;
 
 public class Championship extends NamedEntity{
     public Integer sponsors;
