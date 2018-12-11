@@ -1,60 +1,65 @@
 package view;
 
+import entity.JuniorView;
 import entity.User;
 import javafx.geometry.Insets;
-import javafx.scene.layout.GridPane;
-import util.Query;
 import javafx.scene.Scene;
+import javafx.scene.layout.FlowPane;
+import util.Query;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class Login {
-    private Stage stage;
+    private Stage stage = new Stage();
+    private TextField login=new TextField("root");
+    private PasswordField password=new PasswordField();
+    private Button buttonLogin=new Button("Login");
+    private Button buttonCancel=new Button("Cancel");
 
-    private TextField labelLogin=new TextField("root");
-    private PasswordField labelPassword=new PasswordField();
+    public Login(){
+        FlowPane pane=new FlowPane(10, 10);
+        pane.setPadding(new Insets(10));
 
-    public Login() {
-        stage = new Stage();
-        GridPane pane=new GridPane();
-        pane.setPadding(new Insets(20));
-        pane.setHgap(10);
-        pane.setVgap(10);
-
-        stage.setScene(new Scene(pane));
-        stage.setTitle("Log in");
-
-        Button buttonLogin=new Button("Login");
-        buttonLogin.setOnAction(e -> onLoginClick());
-        labelPassword.setOnAction(e -> onLoginClick());
-
-        Button buttonCancel=new Button("Cancel");
-        buttonCancel.setOnAction(e->stage.close());
-
-        pane.addColumn(0,
-                new Label("Login"),
-                new Label("Password"),
-                buttonLogin);
-
-        pane.addColumn(1,
-                labelLogin,
-                labelPassword,
-                buttonCancel);
-
+        stage.setScene(new Scene(pane, 200, 200));
+        stage.setTitle("Auth");
         stage.show();
+
+        pane.getChildren()
+                .addAll(new Label("Login"), login,
+                        new Label("Password"), password,
+                        buttonLogin, buttonCancel);
+
+        init();
+    }
+
+    private void init(){
+        password.setOnAction(a -> buttonLogin.fire());
+        buttonLogin.setOnAction(e -> onLoginClick());
+        buttonCancel.setOnAction(e->stage.close());
     }
 
     private void onLoginClick(){
         try {
-            User user =new Query<User>(User.class).getAll().stream()
-                    .filter(u->u.login.equals(labelLogin.getText()) && u.password.equals(labelPassword.getText()))
+            User user = new Query<User>(User.class).getAll().stream()
+                    .filter(u->u.login.equals(login.getText()) && u.password.equals(password.getText()))
                     .findFirst().orElseGet(User::new);
-            if(user.role.equals("admin") || user.role.equals("expert")) {
-                stage.hide();
-                new Head();
+
+            switch(user.role) {
+                case "admin":
+                case "expert":
+                    stage.hide();
+                    new Head();
+                    break;
+                case "junior":
+                    Stage stage = new JuniorRegistration(new Query<JuniorView>(JuniorView.class).getStream()
+                            .filter(e-> e.login.equals(user.login))
+                            .findFirst()
+                            .orElse(null)).stage;
+                    stage.show();
+                    break;
+                default:
+                    new Alert(Alert.AlertType.ERROR, "Вам не разрешено входить!").show();
             }
-            else
-                new Alert(Alert.AlertType.ERROR, "Вам не разрешено входить!").show();
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, "Логин или пароль некоректны!").show();
         }

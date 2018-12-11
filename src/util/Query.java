@@ -33,7 +33,7 @@ public class Query<T> {
                 for (int i = 1; i <= metaData.getColumnCount(); i++) {
                     Field field=row.getClass().getField(metaData.getColumnName(i));
                     if(field.getType().getSimpleName().equals("Image"))
-                        field.set(row, ImageArray.ByteToImage(rs.getBinaryStream(i)));
+                        field.set(row, ImageService.ByteToImage(rs.getBinaryStream(i)));
                     else
                         field.set(row, rs.getObject(i));
                 }
@@ -56,7 +56,7 @@ public class Query<T> {
             resultSet.moveToInsertRow();
             for (Field field : entity.getClass().getFields()) {
                 if (field.get(entity) instanceof Image) {
-                    resultSet.updateObject(field.getName(), ImageArray.ImageToByte(field.get(entity)));
+                    resultSet.updateObject(field.getName(), ImageService.ImageToByte(field.get(entity)));
                 }
                 else {
                     resultSet.updateObject(field.getName(), field.get(entity));
@@ -74,7 +74,7 @@ public class Query<T> {
             if(resultSet.first()) {
                 for (Field field : entity.getClass().getFields()) {
                     if (field.get(entity) instanceof Image) {
-                        resultSet.updateObject(field.getName(), ImageArray.ImageToByte(field.get(entity)));
+                        resultSet.updateObject(field.getName(), ImageService.ImageToByte(field.get(entity)));
                     } else {
                         resultSet.updateObject(field.getName(), field.get(entity));
                     }

@@ -9,8 +9,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
-public class ImageArray {
-
+public class ImageService {
     public static ByteArrayInputStream ImageToByte(Object image) throws Exception{
         BufferedImage bufferedImage = SwingFXUtils.fromFXImage((Image) image, null);
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
