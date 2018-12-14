@@ -142,6 +142,31 @@ public abstract class BaseJuniorPage {
         junior.user = user.id;
     }
 
+    protected void setSponsors(Junior junior) throws Exception{
+        new Query<SponsorJunior>(SponsorJunior.class).getStream()
+                .filter(sponsorJunior -> sponsorJunior.junior.equals(junior.id))
+                .forEach(sponsorJunior ->
+                        {
+                            try {
+                                new Query<SponsorJunior>(SponsorJunior.class)
+                                        .delete(sponsorJunior);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                );
+
+        for (Map.Entry<Integer, CheckBox> sponsor : sponsors.entrySet()) {
+            if (sponsor.getValue().isSelected()) {
+                SponsorJunior competenceJunior = new SponsorJunior();
+                competenceJunior.junior = junior.id;
+                competenceJunior.sponsor = sponsor.getKey();
+                new Query<>(SponsorJunior.class)
+                        .insert(competenceJunior);
+            }
+        }
+    }
+
     protected void validate() throws Exception {
         if (firstName.getText().isEmpty())
             throw new Exception("firstName is empty!");
