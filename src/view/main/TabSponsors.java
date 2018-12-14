@@ -1,4 +1,4 @@
-package view;
+package view.main;
 
 import entity.Sponsor;
 import javafx.collections.FXCollections;
@@ -8,6 +8,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import util.Query;
+import view.sponsor.SponsorAlteration;
+import view.sponsor.SponsorRegistration;
 
 public class TabSponsors {
     private Tab tab;
@@ -28,7 +30,7 @@ public class TabSponsors {
         });
         tableView.setOnMouseClicked(e-> {
             if(tableView.getSelectionModel().getSelectedItem()!=null) {
-                Stage stage1 = new SponsorRegistration(tableView.getSelectionModel()
+                Stage stage1 = new SponsorAlteration(tableView.getSelectionModel()
                         .getSelectedItem()).stage;
                 stage1.showAndWait();
                 show();

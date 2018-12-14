@@ -1,4 +1,4 @@
-package view;
+package view.junior;
 
 import entity.*;
 import javafx.collections.FXCollections;
@@ -20,51 +20,36 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-class JuniorRegistration {
-    Stage stage = new Stage();
+public abstract class BaseJuniorPage {
+    public Stage stage = new Stage();
 
-    private TextField firstName = new TextField();
-    private TextField lastName = new TextField();
-    private ComboBox<String> sex = new ComboBox<>();
-    private DatePicker birthday = new DatePicker();
-    private ComboBox<Country> country = new ComboBox<>();
-    private TextField email = new TextField();
-    private TextField school = new TextField();
+    protected TextField firstName = new TextField();
+    protected TextField lastName = new TextField();
+    protected ComboBox<String> sex = new ComboBox<>();
+    protected DatePicker birthday = new DatePicker();
+    protected ComboBox<Country> country = new ComboBox<>();
+    protected TextField email = new TextField();
+    protected TextField school = new TextField();
 
-    private ImageView photoView = new ImageView();
-    private CheckBox toolbox = new CheckBox();
-    private Map<Integer, CheckBox> sponsors;
-    private ComboBox<Competence> competence = new ComboBox<>();
-    private TextField login = new TextField();
-    private PasswordField password = new PasswordField();
-    private PasswordField passwordRepeat = new PasswordField();
-    private Button apply = new Button("Apply");
+    protected ImageView photoView = new ImageView();
+    protected CheckBox toolbox = new CheckBox();
+    protected Map<Integer, CheckBox> sponsors;
+    protected ComboBox<Competence> competence = new ComboBox<>();
+    protected TextField login = new TextField();
+    protected PasswordField password = new PasswordField();
+    protected PasswordField passwordRepeat = new PasswordField();
+    protected Button apply = new Button("Apply");
+    protected Button addPhoto = new Button("Choose");
+    protected VBox box3 = new VBox(10);
 
-    private Integer juniorId;
-    private Integer userId;
+    protected Integer juniorId;
 
-    JuniorRegistration(JuniorView junior){
-        this();
-
-        getJunior(junior);
-
-        apply.setOnAction(a -> {
-            try {
-                validate();
-                update();
-            } catch (Exception e) {
-                new Alert(Alert.AlertType.ERROR, "Error get Junior from DB!\n" + e.getMessage()).show();
-            }
-        });
-    }
-
-    JuniorRegistration() {
+    public BaseJuniorPage() {
         HBox hBox = new HBox(40);
         hBox.setPadding(new Insets(40));
         stage.setScene(new Scene(hBox, 750, 520));
 
         Button cancel = new Button("Cancel");
-        Button addPhoto = new Button("Choose");
         VBox boxSponsors = new VBox(10);
 
         try {
@@ -88,9 +73,10 @@ class JuniorRegistration {
             apply.setOnAction(a -> {
                 try {
                     validate();
-                    insert();
+                    onClickApply();
                     stage.close();
                 } catch (Exception e) {
+                    e.printStackTrace();
                     new Alert(Alert.AlertType.ERROR, "Error get Junior from DB!\n" + e.getMessage()).show();
                 }
             });
@@ -116,7 +102,6 @@ class JuniorRegistration {
 
         VBox box1 = new VBox(10);
         VBox box2 = new VBox(10);
-        VBox box3 = new VBox(10);
         hBox.getChildren()
                 .addAll(box1, box2, box3);
 
@@ -143,50 +128,7 @@ class JuniorRegistration {
                         apply, cancel);
     }
 
-    private void getJunior(JuniorView junior){
-        firstName.setText(junior.firstName);
-        lastName.setText(junior.lastName);
-        sex.getSelectionModel()
-                .select(junior.sex ? 0 : 1);
-        birthday.setValue(junior.birthday.toLocalDate());
-        country.getSelectionModel().select(
-                country.getItems().stream()
-                        .filter(c -> c.name.equals(junior.countryName))
-                        .findFirst()
-                        .orElse(null));
-        email.setText(junior.email);
-        school.setText(junior.school);
-
-        try {
-            sponsors.values()
-                    .forEach(checkBox ->
-                                checkBox.setSelected(junior.sponsors.contains(checkBox.getText())));
-        } catch (Exception ignored) {}
-
-        competence.getSelectionModel().select(
-                competence.getItems().stream()
-                        .filter(c -> c.name.equals(junior.competenceName))
-                        .findFirst()
-                        .orElse(null));
-        toolbox.setSelected(junior.toolbox);
-        photoView.setImage(junior.photo);
-        login.setText(junior.login);
-        password.setText(junior.password);
-        passwordRepeat.setText(junior.password);
-
-        try {
-            Junior junior1=new Query<Junior>(Junior.class).getStream()
-                    .filter(j -> j.email.equals(email.getText()))
-                    .findFirst()
-                    .orElse(null);
-            juniorId=junior1.id;
-            userId=junior1.user;
-        } catch (Exception ignored) {
-            stage.close();
-        }
-    }
-
-    private void setJunior(Junior junior, User user) throws Exception {
+    protected void setJunior(Junior junior, User user) throws Exception {
         junior.firstName = firstName.getText();
         junior.lastName = lastName.getText();
         junior.sex = sex.getSelectionModel().getSelectedIndex() == 0;
@@ -198,32 +140,9 @@ class JuniorRegistration {
         junior.school = school.getText();
         junior.photo = photoView.getImage();
         junior.user = user.id;
-
-        new Query<SponsorJunior>(SponsorJunior.class).getStream()
-                .filter(sponsorJunior -> sponsorJunior.junior.equals(junior.id))
-                .forEach(sponsorJunior ->
-                        {
-                            try {
-                                new Query<SponsorJunior>(SponsorJunior.class)
-                                        .delete(sponsorJunior);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-        );
-
-        for (Map.Entry<Integer, CheckBox> sponsor : sponsors.entrySet()) {
-            if (sponsor.getValue().isSelected()) {
-                SponsorJunior competenceJunior = new SponsorJunior();
-                competenceJunior.junior = juniorId;
-                competenceJunior.sponsor = sponsor.getKey();
-                new Query<>(SponsorJunior.class)
-                        .insert(competenceJunior);
-            }
-        }
     }
 
-    private void validate() throws Exception {
+    protected void validate() throws Exception {
         if (firstName.getText().isEmpty())
             throw new Exception("firstName is empty!");
 
@@ -282,38 +201,13 @@ class JuniorRegistration {
             throw new Exception("password must contain one of '!', '@', '#', '$', '%', '^'");
     }
 
-    private void update() throws Exception{
-        Junior junior=new Junior();
-        junior.id=juniorId;
-        junior.user=userId;
-
-        User user = getUser();
-        user.id = userId;
-        setJunior(junior, user);
-
-        new Query<User>(User.class)
-                .update(user);
-        new Query<Junior>(Junior.class)
-                .update(junior);
-        stage.close();
-    }
-
-    private void insert() throws Exception {
-        User user = getUser();
-        user.id = new Query<>(User.class)
-                .insert(user);
-
-        Junior junior = new Junior();
-        setJunior(junior, user);
-        junior.id = new Query<>(Junior.class)
-                .insert(junior);
-    }
-
-    private User getUser() {
+    protected User getUser() {
         User user = new User();
         user.login = login.getText();
         user.password = password.getText();
         user.role = "junior";
         return user;
     }
+
+    protected abstract void onClickApply() throws Exception;
 }

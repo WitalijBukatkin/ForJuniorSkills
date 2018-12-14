@@ -8,6 +8,8 @@ import javafx.scene.layout.FlowPane;
 import util.Query;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import view.junior.JuniorPage;
+import view.main.Head;
 
 public class Login {
     private Stage stage = new Stage();
@@ -51,10 +53,10 @@ public class Login {
                     new Head();
                     break;
                 case "junior":
-                    Stage stage = new JuniorRegistration(new Query<JuniorView>(JuniorView.class).getStream()
+                    Stage stage = new JuniorPage(new Query<JuniorView>(JuniorView.class).getStream()
                             .filter(e-> e.login.equals(user.login))
                             .findFirst()
-                            .orElse(null)).stage;
+                            .orElse(new JuniorView())).stage;
                     stage.show();
                     break;
                 default:

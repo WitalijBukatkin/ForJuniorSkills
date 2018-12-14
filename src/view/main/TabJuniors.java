@@ -1,4 +1,4 @@
-package view;
+package view.main;
 
 import entity.Competence;
 import entity.JuniorView;
@@ -9,6 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import util.Query;
+import view.junior.JuniorAlteration;
+import view.junior.JuniorRegistration;
 
 import java.util.stream.Collectors;
 
@@ -38,7 +40,7 @@ public class TabJuniors {
         });
         tableView.setOnMouseClicked(e-> {
             if(tableView.getSelectionModel().getSelectedItem()!=null) {
-                Stage stage1 = new JuniorRegistration(tableView.getSelectionModel()
+                Stage stage1 = new JuniorAlteration(tableView.getSelectionModel()
                         .getSelectedItem()).stage;
                 stage1.showAndWait();
                 search();

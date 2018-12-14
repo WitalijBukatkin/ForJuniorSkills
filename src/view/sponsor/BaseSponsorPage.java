@@ -1,54 +1,32 @@
-package view;
+package view.sponsor;
 
-import entity.*;
-import javafx.collections.FXCollections;
+import entity.Sponsor;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import util.Query;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.Period;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+public abstract class BaseSponsorPage {
+    public Stage stage = new Stage();
+    protected VBox box3 = new VBox(10);
 
-public class SponsorRegistration {
-    Stage stage = new Stage();
+    protected TextField name = new TextField();
+    protected TextField description = new TextField();
 
-    private TextField name = new TextField();
-    private TextField description = new TextField();
+    protected ImageView photoView = new ImageView();
+    protected Button apply = new Button("Apply");
 
-    private ImageView photoView = new ImageView();
-    private Button apply = new Button("Apply");
+    protected Sponsor sponsor;
 
-    private Sponsor sponsor;
-
-    SponsorRegistration(Sponsor sponsor){
-        this();
-
-        this.sponsor=sponsor;
-
-        getSponsor();
-
-        apply.setOnAction(a -> {
-            try {
-                validate();
-                update();
-            } catch (Exception e) {
-                new Alert(Alert.AlertType.ERROR, "Error get Junior from DB!\n" + e.getMessage()).show();
-            }
-        });
-    }
-
-    SponsorRegistration() {
+    BaseSponsorPage() {
         HBox hBox = new HBox(40);
         hBox.setPadding(new Insets(40));
         stage.setScene(new Scene(hBox, 400, 520));
@@ -60,7 +38,7 @@ public class SponsorRegistration {
             apply.setOnAction(a -> {
                 try {
                     validate();
-                    insert();
+                    onClickApply();
                     stage.close();
                 } catch (Exception e) {
                     new Alert(Alert.AlertType.ERROR, "Error get Sponsor from DB!\n" + e.getMessage()).show();
@@ -82,7 +60,6 @@ public class SponsorRegistration {
 
         VBox box1 = new VBox(10);
         VBox box2 = new VBox(10);
-        VBox box3 = new VBox(10);
         hBox.getChildren()
                 .addAll(box1, box2, box3);
 
@@ -94,13 +71,7 @@ public class SponsorRegistration {
                         apply, cancel);
     }
 
-    private void getSponsor() {
-        name.setText(sponsor.name);
-        photoView.setImage(sponsor.logo);
-        description.setText(sponsor.description);
-    }
-
-    private void setSponsor() {
+    protected void setSponsor() {
         sponsor.name= name.getText();
         sponsor.description = description.getText();
         sponsor.logo = photoView.getImage();
@@ -114,18 +85,5 @@ public class SponsorRegistration {
             throw new Exception("photo is empty!");
     }
 
-    private void update() throws Exception{
-        setSponsor();
-
-        new Query<Sponsor>(Sponsor.class)
-                .update(sponsor);
-        stage.close();
-    }
-
-    private void insert() throws Exception {
-        sponsor = new Sponsor();
-        setSponsor();
-        new Query<>(Sponsor.class)
-                .insert(sponsor);
-    }
+    protected abstract void onClickApply() throws Exception;
 }
