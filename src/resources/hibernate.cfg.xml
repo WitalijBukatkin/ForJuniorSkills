@@ -10,5 +10,14 @@
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>
 		<property name="hbm2ddl.auto">update</property>
+
+        <mapping class="entity.BaseEntity"></mapping>
+        <mapping class="entity.Competence"></mapping>
+        <mapping class="entity.Country"></mapping>
+        <mapping class="entity.Expert"></mapping>
+        <mapping class="entity.Junior"></mapping>
+        <mapping class="entity.NamedEntity"></mapping>
+        <mapping class="entity.Sponsor"></mapping>
+        <mapping class="entity.User"></mapping>
 	</session-factory>
 </hibernate-configuration>
