@@ -22,7 +22,8 @@ public class Login {
         stage = new Stage(){{
             setScene(new Scene(new FlowPane(10, 10){{
                 setPadding(new Insets(10));
-                getChildren().addAll(new Label("Login"), login,
+                getChildren().addAll(
+                        new Label("Login"), login,
                         new Label("Password"), password,
                         buttonLogin, buttonCancel);
             }}, 200, 200));
