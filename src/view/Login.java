@@ -12,25 +12,23 @@ import view.junior.JuniorPage;
 import view.main.Head;
 
 public class Login {
-    private Stage stage = new Stage();
+    private Stage stage;
     private TextField login=new TextField("root");
     private PasswordField password=new PasswordField();
     private Button buttonLogin=new Button("Login");
     private Button buttonCancel=new Button("Cancel");
 
     public Login(){
-        FlowPane pane=new FlowPane(10, 10);
-        pane.setPadding(new Insets(10));
-
-        stage.setScene(new Scene(pane, 200, 200));
-        stage.setTitle("Auth");
-        stage.show();
-
-        pane.getChildren()
-                .addAll(new Label("Login"), login,
+        stage = new Stage(){{
+            setScene(new Scene(new FlowPane(10, 10){{
+                setPadding(new Insets(10));
+                getChildren().addAll(new Label("Login"), login,
                         new Label("Password"), password,
                         buttonLogin, buttonCancel);
-
+            }}, 200, 200));
+            setTitle("Auth");
+            show();
+        }};
         init();
     }
 
@@ -53,17 +51,19 @@ public class Login {
                     new Head();
                     break;
                 case "junior":
-                    Stage stage = new JuniorPage(new Query<JuniorView>(JuniorView.class).getStream()
+                    new JuniorPage(new Query<JuniorView>(JuniorView.class).getStream()
                             .filter(e-> e.login.equals(user.login))
                             .findFirst()
-                            .orElse(new JuniorView())).stage;
-                    stage.show();
+                            .orElse(new JuniorView()))
+                            .stage.show();
                     break;
                 default:
-                    new Alert(Alert.AlertType.ERROR, "Вам не разрешено входить!").show();
+                    new Alert(Alert.AlertType.ERROR, "Вам не разрешено входить!")
+                            .show();
             }
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "Логин или пароль некоректны!").show();
+            new Alert(Alert.AlertType.ERROR, "Логин или пароль некоректны!")
+                    .show();
         }
     }
 }
