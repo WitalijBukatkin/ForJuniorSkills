@@ -10,7 +10,7 @@ public class Launcher extends Application {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             launch();
         } catch (Exception e){
-            new Alert(Alert.AlertType.ERROR, "Не могу подключится к серверу!").showAndWait();
+            new Alert(Alert.AlertType.ERROR, "Server is dead!").showAndWait();
         }
         HibernateUtil.shutdown();
     }
