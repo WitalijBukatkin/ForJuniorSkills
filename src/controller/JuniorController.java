@@ -73,7 +73,7 @@ public class JuniorController extends AbstractController {
     public void apply(){
         try {
             if(user==junior.getUser())
-                throw new AccessDeniedException("Access denied!");
+                throw new AccessDeniedException("Change denied");
 
             validate();
 
