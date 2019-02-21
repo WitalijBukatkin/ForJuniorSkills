@@ -12,10 +12,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.*;
 import org.hibernate.HibernateException;
-import repository.CompetenceRepository;
-import repository.CountryRepository;
-import repository.JuniorRepository;
-import repository.SponsorRepository;
+import repository.*;
 
 import javax.xml.bind.ValidationException;
 import java.awt.*;
@@ -53,6 +50,7 @@ public class JuniorController extends AbstractController {
     private static User user;
     private static Stage stage=new Stage();
 
+    private UserRepository userRepository=new UserRepository();
     private JuniorRepository juniorRepository=new JuniorRepository();
     private CountryRepository countryRepository=new CountryRepository();
     private CompetenceRepository competenceRepository=new CompetenceRepository();
@@ -78,8 +76,10 @@ public class JuniorController extends AbstractController {
             validate();
 
             juniorRepository.openTransaction();
+            userRepository.save(junior.getUser());
             juniorRepository.save(junior);
             juniorRepository.commit();
+
             stage.close();
         }
         catch (AccessDeniedException | ValidationException e){
