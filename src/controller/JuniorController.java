@@ -73,7 +73,7 @@ public class JuniorController extends AbstractController {
     public void apply(){
         try {
             if(user==junior.getUser())
-                throw new AccessDeniedException("Изменение запрещено!");
+                throw new AccessDeniedException("Access denied!");
 
             validate();
 
@@ -86,7 +86,7 @@ public class JuniorController extends AbstractController {
             new Alert(Alert.AlertType.ERROR, e.getClass().getSimpleName() + ": "+ e.getMessage()).showAndWait();
         }
         catch (HibernateException e){
-            new Alert(Alert.AlertType.ERROR, "Не удалось это сохранить!").showAndWait();
+            new Alert(Alert.AlertType.ERROR, "Can’t save!").showAndWait();
             e.printStackTrace();
         }
     }
