@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Login">
+<GridPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -20,9 +20,9 @@
    <children>
       <Label text="Login" />
       <Label text="Password" GridPane.rowIndex="1" />
-      <Button mnemonicParsing="false" onAction="#loginAction" text="Log In" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" onAction="#cancelAction" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Button mnemonicParsing="false" onAction="#login" text="Log In" GridPane.rowIndex="2" />
+      <Button mnemonicParsing="false" onAction="#close" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <TextField fx:id="login" text="root" GridPane.columnIndex="1" />
-      <TextField fx:id="password" accessibleRole="PASSWORD_FIELD" text="admin" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <TextField fx:id="password" text="admin" GridPane.columnIndex="1" GridPane.rowIndex="1" />
    </children>
 </GridPane>

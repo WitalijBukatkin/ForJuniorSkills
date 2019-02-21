@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox prefHeight="484.0" prefWidth="780.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.JuniorController">
+   <VBox spacing="5.0">
+      <fx:define>
+         <ToggleGroup fx:id="group" />
+      </fx:define>
+      <children>
+         <Label text="firstName" />
+         <TextField fx:id="firstName" />
+         <Label text="lastName" />
+         <TextField fx:id="lastName" />
+         <Label text="sex" />
+         <RadioButton fx:id="sex" text="Male" toggleGroup="$group"/>
+         <RadioButton selected="true" text="Female" toggleGroup="$group" />
+         <Label text="birthday" />
+         <DatePicker fx:id="birthday" />
+         <Label text="email" />
+         <TextField fx:id="email" />
+         <Label text="country" />
+         <ComboBox fx:id="country" />
+         <Label text="school" />
+         <TextField fx:id="school" />
+         <CheckBox fx:id="toolbox" text="toolbox" />
+         <Label text="competence" />
+         <ComboBox fx:id="competence" />
+      </children>
+   </VBox>
+   <VBox spacing="5.0">
+      <Label text="photo" />
+      <Button fx:id="photoView" onAction="#choosePhoto" text="choose" />
+      <ImageView fx:id="photo" fitHeight="200.0" fitWidth="200.0" />
+      <Label text="sponsors" />
+      <ListView fx:id="sponsors" />
+   </VBox>
+   <VBox spacing="5.0">
+      <Label text="login" />
+      <TextField fx:id="login" />
+      <Label text="password" />
+      <TextField fx:id="password" />
+      <Label text="repeatPassword" />
+      <TextField fx:id="repeatPassword" />
+      <Button onAction="#apply" text="Apply" />
+      <Button onAction="#close" text="Cancel" />
+      <Hyperlink onAction="#ofJuniorSkills" text="Open info of juniorskills" />
+      <Hyperlink onAction="#ofCompetence" text="Open info of competence" />
+   </VBox>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</HBox>

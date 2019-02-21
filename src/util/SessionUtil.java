@@ -3,21 +3,20 @@ package util;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Closeable;
 
-public class SessionUtil implements Closeable {
-    private final Session session = HibernateUtil.getSessionFactory().openSession();
-    private final Transaction transaction = session.beginTransaction();
-
+public class SessionUtil{
     protected Session getSession() {
-        return session;
+        return HibernateUtil.getSession();
+    }
+
+    public void openTransaction(){
+        HibernateUtil.getSession().beginTransaction();
     }
 
     public void commit(){
-        transaction.commit();
-    }
-
-    public void close(){
-        session.close();
+        HibernateUtil.getSession().getTransaction().commit();
+        HibernateUtil.refresh();
     }
 }

@@ -1,0 +1,23 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="ForJuniorSkills">
+    <output-path>$PROJECT_DIR$/package</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="Launcher" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="" />
+        <option name="vendor" value="" />
+        <option name="version" value="" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="ForJuniorSkills.jar">
+        <element id="module-output" name="ForJuniorSkills" />
+      </element>
+      <element id="directory" name="lib">
+        <element id="library" level="project" name="antlr-2.7.7" />
+      </element>
+    </root>
+  </artifact>
+</component>
