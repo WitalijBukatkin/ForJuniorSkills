@@ -56,7 +56,7 @@ public class SponsorController extends AbstractController {
         } catch (ValidationException v){
             new Alert(Alert.AlertType.ERROR, v.getClass().getSimpleName() + ": "+ v.getMessage()).showAndWait();
         } catch (HibernateException h){
-            new Alert(Alert.AlertType.ERROR, "Не удалось это сохранить!").showAndWait();
+            new Alert(Alert.AlertType.ERROR, "Can’t save!").showAndWait();
             h.printStackTrace();
         }
     }
