@@ -7,16 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Expert extends NamedEntity{
-    private ObjectProperty<User> user=new SimpleObjectProperty<>();
+class Expert extends NamedEntity{
+    private final ObjectProperty<User> user=new SimpleObjectProperty<>();
 
     @ManyToOne
     public User getUser() {
         return user.get();
-    }
-
-    public ObjectProperty<User> userProperty() {
-        return user;
     }
 
     public void setUser(User user) {

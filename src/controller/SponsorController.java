@@ -1,6 +1,8 @@
 package controller;
 
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.image.Image;
@@ -9,38 +11,37 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Junior;
 import model.Sponsor;
-import model.User;
 import org.hibernate.HibernateException;
-import repository.CompetenceRepository;
-import repository.CountryRepository;
 import repository.JuniorRepository;
 import repository.SponsorRepository;
 
 import javax.xml.bind.ValidationException;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.ResourceBundle;
 
 import static util.ValidationUtil.isEmpty;
 import static util.ValidationUtil.validator;
 
-public class SponsorController extends AbstractController {
+public class SponsorController extends AbstractController implements Initializable {
     private static Sponsor sponsor;
-    private static Stage stage=new Stage();
+    private static final Stage stage=new Stage();
 
-    public TextField name;
-    public TextArea description;
-    public ImageView logo;
-    public ListView juniors;
-    public Button logoView;
+    @FXML
+    private TextField name;
+    @FXML
+    private TextArea description;
+    @FXML
+    private ImageView logo;
+    @FXML
+    private ListView juniors;
+    @FXML
+    private Button logoView;
 
-    private SponsorRepository sponsorRepository=new SponsorRepository();
-    private JuniorRepository juniorRepository=new JuniorRepository();
+    private final SponsorRepository sponsorRepository=new SponsorRepository();
+    private final JuniorRepository juniorRepository=new JuniorRepository();
 
-    static void show(Sponsor sponsor){
+    public static void show(Sponsor sponsor){
         SponsorController.sponsor=sponsor;
         stage.setTitle("Sponsor Edit");
         AbstractController.show(stage, "/view/Sponsor.fxml");
@@ -99,7 +100,7 @@ public class SponsorController extends AbstractController {
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         stage.close();
     }
 }

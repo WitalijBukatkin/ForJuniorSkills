@@ -1,10 +1,6 @@
 package util;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import java.io.Closeable;
 
 public class SessionUtil{
     protected Session getSession() {

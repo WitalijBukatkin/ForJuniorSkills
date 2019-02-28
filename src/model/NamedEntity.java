@@ -6,7 +6,7 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class NamedEntity extends BaseEntity{
-    protected StringProperty name=new SimpleStringProperty();
+    private final StringProperty name=new SimpleStringProperty();
 
     public String getName() {
         return name.get();

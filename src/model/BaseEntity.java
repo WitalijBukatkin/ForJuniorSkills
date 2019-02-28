@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Access(AccessType.PROPERTY)
 public abstract class BaseEntity {
 
-    protected Integer id;
+    private Integer id;
 
     @Id
     @GeneratedValue

@@ -2,6 +2,8 @@ package controller;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -17,9 +19,7 @@ import repository.*;
 import javax.xml.bind.ValidationException;
 import java.awt.*;
 import java.io.File;
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.AccessDeniedException;
 import java.time.LocalDate;
@@ -29,34 +29,34 @@ import java.util.*;
 import static util.ValidationUtil.isEmpty;
 import static util.ValidationUtil.validator;
 
-public class JuniorController extends AbstractController {
-    public TextField firstName;
-    public TextField lastName;
-    public RadioButton sex;
-    public DatePicker birthday;
-    public TextField email;
-    public TextField school;
-    public ComboBox country;
-    public ListView sponsors;
-    public CheckBox toolbox;
-    public TextField login;
-    public TextField password;
-    public TextField repeatPassword;
-    public ComboBox competence;
-    public ImageView photo;
-    public Button photoView;
+public class JuniorController extends AbstractController implements Initializable {
+    @FXML private TextField firstName;
+    @FXML private TextField lastName;
+    @FXML private RadioButton sex;
+    @FXML private DatePicker birthday;
+    @FXML private TextField email;
+    @FXML private TextField school;
+    @FXML private ComboBox<Country> country;
+    @FXML private ListView sponsors;
+    @FXML private CheckBox toolbox;
+    @FXML private TextField login;
+    @FXML private TextField password;
+    @FXML private TextField repeatPassword;
+    @FXML private ComboBox competence;
+    @FXML private ImageView photo;
+    @FXML private Button photoView;
 
     private static Junior junior;
     private static User user;
-    private static Stage stage=new Stage();
+    private static final Stage stage=new Stage();
 
-    private UserRepository userRepository=new UserRepository();
-    private JuniorRepository juniorRepository=new JuniorRepository();
-    private CountryRepository countryRepository=new CountryRepository();
-    private CompetenceRepository competenceRepository=new CompetenceRepository();
-    private SponsorRepository sponsorRepository=new SponsorRepository();
+    private final UserRepository userRepository=new UserRepository();
+    private final JuniorRepository juniorRepository=new JuniorRepository();
+    private final CountryRepository countryRepository=new CountryRepository();
+    private final CompetenceRepository competenceRepository=new CompetenceRepository();
+    private final SponsorRepository sponsorRepository=new SponsorRepository();
 
-    static void show(User user, Junior junior){
+    public static void show(User user, Junior junior){
         JuniorController.user=user;
         JuniorController.junior=junior;
         stage.setTitle("Junior Edit");
@@ -64,7 +64,7 @@ public class JuniorController extends AbstractController {
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         stage.close();
     }
 

@@ -1,7 +1,8 @@
 package controller;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
@@ -16,8 +17,6 @@ import repository.CompetenceRepository;
 import repository.JuniorRepository;
 import repository.SponsorRepository;
 
-import javax.jws.soap.SOAPBinding;
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.Period;
@@ -26,25 +25,34 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class MenuController extends AbstractController{
+public class MenuController extends AbstractController implements Initializable {
 
-    private static Stage stage=new Stage();
+    private static final Stage stage=new Stage();
     private static User user;
 
-    public TextField firstName;
-    public TextField lastName;
-    public ComboBox competence;
+    @FXML
+    private TextField firstName;
+    @FXML
+    private TextField lastName;
+    @FXML
+    private ComboBox competence;
 
-    public TableView juniorsTable;
-    public TableView sponsorTable;
-    public Label juniorsCount;
-    public Label juniorsAVG;
-    public Label countJuniorsForEachCompetence;
-    public Label avgAgeForEachCompetence;
+    @FXML
+    private TableView juniorsTable;
+    @FXML
+    private TableView sponsorTable;
+    @FXML
+    private Label juniorsCount;
+    @FXML
+    private Label juniorsAVG;
+    @FXML
+    private Label countJuniorsForEachCompetence;
+    @FXML
+    private Label avgAgeForEachCompetence;
 
-    private JuniorRepository juniorRepository=new JuniorRepository();
-    private SponsorRepository sponsorRepository=new SponsorRepository();
-    private CompetenceRepository competenceRepository=new CompetenceRepository();
+    private final JuniorRepository juniorRepository=new JuniorRepository();
+    private final SponsorRepository sponsorRepository=new SponsorRepository();
+    private final CompetenceRepository competenceRepository=new CompetenceRepository();
 
     public static void show(User user){
         MenuController.user=user;
@@ -83,7 +91,7 @@ public class MenuController extends AbstractController{
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         stage.close();
     }
 
@@ -94,7 +102,8 @@ public class MenuController extends AbstractController{
         juniorSearch();
     }
 
-    public void juniorSearch() {
+    @FXML
+    private void juniorSearch() {
         juniorsTable.setItems(juniorRepository.getByFirstNameAndLastNameAndCompetence(
                 firstName.getText(), lastName.getText(), (Competence) competence.getValue()));
     }

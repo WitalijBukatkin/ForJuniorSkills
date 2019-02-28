@@ -6,9 +6,9 @@ import javax.persistence.*;
 
 @Entity
 public class User extends BaseEntity{
-    private StringProperty login=new SimpleStringProperty();
-    private StringProperty password=new SimpleStringProperty();
-    private StringProperty role=new SimpleStringProperty();
+    private final StringProperty login=new SimpleStringProperty();
+    private final StringProperty password=new SimpleStringProperty();
+    private final StringProperty role=new SimpleStringProperty();
 
     public String getLogin() {
         return login.get();
@@ -36,10 +36,6 @@ public class User extends BaseEntity{
 
     public String getRole() {
         return role.get();
-    }
-
-    public StringProperty roleProperty() {
-        return role;
     }
 
     public void setRole(String role) {

@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import model.User;
 import javafx.event.ActionEvent;
@@ -9,17 +10,17 @@ import repository.JuniorRepository;
 import repository.UserRepository;
 
 import javax.persistence.NoResultException;
-import java.io.IOException;
-import java.nio.file.AccessDeniedException;
 
 public class LoginController extends AbstractController {
-    public TextField login;
-    public TextField password;
+    @FXML
+    private TextField login;
+    @FXML
+    private TextField password;
 
-    private static Stage stage=new Stage();
+    private static final Stage stage=new Stage();
 
-    private UserRepository userRepository = new UserRepository();
-    private JuniorRepository juniorRepository=new JuniorRepository();
+    private final UserRepository userRepository = new UserRepository();
+    private final JuniorRepository juniorRepository=new JuniorRepository();
 
     public static void show(){
         stage.setTitle("Login");
@@ -42,7 +43,7 @@ public class LoginController extends AbstractController {
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         stage.close();
     }
 }

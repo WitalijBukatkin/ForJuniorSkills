@@ -17,8 +17,8 @@ public class Sponsor extends NamedEntity{
         Properties
     */
 
-    private ObjectProperty<ImageView> logo=new SimpleObjectProperty<>();
-    private StringProperty description=new SimpleStringProperty();
+    private final ObjectProperty<ImageView> logo=new SimpleObjectProperty<>();
+    private final StringProperty description=new SimpleStringProperty();
     private Set<Junior> juniors=new HashSet<>();
 
     /*

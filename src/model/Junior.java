@@ -15,27 +15,27 @@ public class Junior extends BaseEntity{
         Properties
     */
 
-    private StringProperty firstName=new SimpleStringProperty();
+    private final StringProperty firstName=new SimpleStringProperty();
 
-    private StringProperty lastName=new SimpleStringProperty();
+    private final StringProperty lastName=new SimpleStringProperty();
 
-    private BooleanProperty sex=new SimpleBooleanProperty();
+    private final BooleanProperty sex=new SimpleBooleanProperty();
 
-    private ObjectProperty<LocalDate> birthday=new SimpleObjectProperty<>();
+    private final ObjectProperty<LocalDate> birthday=new SimpleObjectProperty<>();
 
-    private StringProperty email=new SimpleStringProperty();
+    private final StringProperty email=new SimpleStringProperty();
 
-    private ObjectProperty<Country> country=new SimpleObjectProperty<>();
+    private final ObjectProperty<Country> country=new SimpleObjectProperty<>();
 
-    private StringProperty school=new SimpleStringProperty();
+    private final StringProperty school=new SimpleStringProperty();
 
-    private BooleanProperty toolbox=new SimpleBooleanProperty();
+    private final BooleanProperty toolbox=new SimpleBooleanProperty();
 
-    private ObjectProperty<User> user = new SimpleObjectProperty<>();
+    private final ObjectProperty<User> user = new SimpleObjectProperty<>();
 
-    private ObjectProperty<ImageView> photoImage = new SimpleObjectProperty<>();
+    private final ObjectProperty<ImageView> photoImage = new SimpleObjectProperty<>();
 
-    private ObjectProperty<Competence> competence = new SimpleObjectProperty<>();
+    private final ObjectProperty<Competence> competence = new SimpleObjectProperty<>();
 
     private Set<Sponsor> sponsors=new HashSet<>();
 
@@ -119,10 +119,6 @@ public class Junior extends BaseEntity{
     @ManyToOne
     public User getUser() {
         return user.get();
-    }
-
-    public ObjectProperty<User> userProperty() {
-        return user;
     }
 
     public void setUser(User user) {

@@ -1,6 +1,8 @@
 # ForJuniorSkills
 AP Project
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/944a8b755c0340e7b089fd21c156ace0)](https://www.codacy.com/app/WitalijBukatkin/ForJuniorSkills?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WitalijBukatkin/ForJuniorSkills&amp;utm_campaign=Badge_Grade)
+
 2018-2019 Bukatkin Witalij
 
 Using:

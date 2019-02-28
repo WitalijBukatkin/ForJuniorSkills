@@ -18,28 +18,26 @@
 <HBox prefHeight="484.0" prefWidth="780.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.JuniorController">
    <VBox spacing="5.0">
       <fx:define>
-         <ToggleGroup fx:id="group" />
+         <ToggleGroup fx:id="group"/>
       </fx:define>
-      <children>
-         <Label text="firstName" />
-         <TextField fx:id="firstName" />
-         <Label text="lastName" />
-         <TextField fx:id="lastName" />
-         <Label text="sex" />
-         <RadioButton fx:id="sex" text="Male" toggleGroup="$group"/>
-         <RadioButton selected="true" text="Female" toggleGroup="$group" />
-         <Label text="birthday" />
-         <DatePicker fx:id="birthday" />
-         <Label text="email" />
-         <TextField fx:id="email" />
-         <Label text="country" />
-         <ComboBox fx:id="country" />
-         <Label text="school" />
-         <TextField fx:id="school" />
-         <CheckBox fx:id="toolbox" text="toolbox" />
-         <Label text="competence" />
-         <ComboBox fx:id="competence" />
-      </children>
+      <Label text="firstName"/>
+      <TextField fx:id="firstName"/>
+      <Label text="lastName"/>
+      <TextField fx:id="lastName"/>
+      <Label text="sex"/>
+      <RadioButton fx:id="sex" text="Male" toggleGroup="$group"/>
+      <RadioButton selected="true" text="Female" toggleGroup="$group"/>
+      <Label text="birthday"/>
+      <DatePicker fx:id="birthday"/>
+      <Label text="email"/>
+      <TextField fx:id="email"/>
+      <Label text="country"/>
+      <ComboBox fx:id="country"/>
+      <Label text="school"/>
+      <TextField fx:id="school"/>
+      <CheckBox fx:id="toolbox" text="toolbox"/>
+      <Label text="competence"/>
+      <ComboBox fx:id="competence"/>
    </VBox>
    <VBox spacing="5.0">
       <Label text="photo" />
