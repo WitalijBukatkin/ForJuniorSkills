@@ -4,6 +4,7 @@
 
 <hibernate-configuration>
 	<session-factory>
+		<!--Connection-->
 		<property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
 		<property name="connection.url">jdbc:mysql://us-cdbr-iron-east-03.cleardb.net/heroku_9e2d90d0f27f20a?serverTimezone=UTC</property>
 		<property name="connection.username">b19b2cc31129f4</property>
@@ -15,13 +16,13 @@
 		<property name="format_sql">true</property>
 
 		<!--Mapping-->
-        <mapping class="model.BaseEntity"/>
-        <mapping class="model.Competence"/>
-        <mapping class="model.Country"/>
-        <mapping class="model.Expert"/>
-        <mapping class="model.Junior"/>
-        <mapping class="model.NamedEntity"/>
-        <mapping class="model.Sponsor"/>
-        <mapping class="model.User"/>
+    		<mapping class="model.BaseEntity"/>
+        	<mapping class="model.Competence"/>
+        	<mapping class="model.Country"/>
+        	<mapping class="model.Expert"/>
+        	<mapping class="model.Junior"/>
+        	<mapping class="model.NamedEntity"/>
+        	<mapping class="model.Sponsor"/>
+        	<mapping class="model.User"/>
 	</session-factory>
 </hibernate-configuration>
