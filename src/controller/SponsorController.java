@@ -1,19 +1,17 @@
 package controller;
 
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import model.Junior;
 import model.Sponsor;
 import org.hibernate.HibernateException;
 import repository.JuniorRepository;
 import repository.SponsorRepository;
+import static util.BindingUtil.bindCheckBoxListToSet;
 
 import javax.xml.bind.ValidationException;
 import java.io.File;
@@ -70,14 +68,7 @@ public class SponsorController extends AbstractController implements Initializab
 
         juniors.setItems(juniorRepository.getAll());
 
-        juniors.setCellFactory(CheckBoxListCell.forListView(e ->
-                new SimpleBooleanProperty(sponsor.getJuniors().contains(e)) {{
-                    addListener((ob, o, n) -> {
-                        if (n) sponsor.getJuniors().add((Junior) e);
-                        else sponsor.getJuniors().remove(e);
-                    });
-                }}
-        ));
+        bindCheckBoxListToSet(juniors, sponsor.getJuniors());
 
         name.textProperty().bindBidirectional(sponsor.nameProperty());
         description.textProperty().bindBidirectional(sponsor.descriptionProperty());

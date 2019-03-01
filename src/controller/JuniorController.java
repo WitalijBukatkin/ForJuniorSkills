@@ -1,13 +1,11 @@
 package controller;
 
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -26,6 +24,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.*;
 
+import static util.BindingUtil.bindCheckBoxListToSet;
 import static util.ValidationUtil.isEmpty;
 import static util.ValidationUtil.validator;
 
@@ -103,14 +102,7 @@ public class JuniorController extends AbstractController implements Initializabl
         sponsors.setItems(sponsorRepository.getAll());
         competence.setItems(competenceRepository.getAll());
 
-        sponsors.setCellFactory(CheckBoxListCell.forListView(e ->
-                new SimpleBooleanProperty(junior.getSponsors().contains(e)) {{
-                    addListener((ob, o, n) -> {
-                        if (n) junior.getSponsors().add((Sponsor) e);
-                        else junior.getSponsors().remove(e);
-                    });
-                }}
-        ));
+        bindCheckBoxListToSet(sponsors, junior.getSponsors());
 
         firstName.textProperty().bindBidirectional(junior.firstNameProperty());
         lastName.textProperty().bindBidirectional(junior.lastNameProperty());
