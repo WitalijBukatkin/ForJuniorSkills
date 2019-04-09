@@ -23,9 +23,8 @@ public class ImageUtil {
 
     public static byte[] save(ImageView image){
         try{
-            BufferedImage bufferedImage = SwingFXUtils.fromFXImage(image.getImage(), null);
             try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-                ImageIO.write(bufferedImage, "png", outputStream);
+                ImageIO.write(SwingFXUtils.fromFXImage(image.getImage(), null), "png", outputStream);
                 return outputStream.toByteArray();
             }
         } catch (Exception e){
