@@ -1,0 +1,22 @@
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://java.sun.com/xml/ns/persistence"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+    <persistence-unit name="model">
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+            <property name="hibernate.connection.url"
+                      value="jdbc:mysql://us-cdbr-iron-east-03.cleardb.net/heroku_9e2d90d0f27f20a?serverTimezone=UTC"/>
+            <property name="hibernate.connection.username" value="b19b2cc31129f4"/>
+            <property name="hibernate.connection.password" value="d48f5b1a"/>
+
+            <!--Debug-->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+
+
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <!--<property name="hibernate.hbm2ddl.import_files" value="db/dump.sql"/>-->
+        </properties>
+    </persistence-unit>
+</persistence>

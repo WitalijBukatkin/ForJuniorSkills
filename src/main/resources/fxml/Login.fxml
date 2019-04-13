@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<HBox xmlns:fx="http://javafx.com/fxml/1" spacing="5.0" xmlns="http://javafx.com/javafx/9.0.4"
+      fx:controller="controller.LoginController">
+
+    <VBox spacing="5.0">
+        <Label text="Login"/>
+        <TextField fx:id="login" text="root"/>
+
+        <Button onAction="#login" text="Log In"/>
+    </VBox>
+    <VBox spacing="5.0">
+        <Label text="Password"/>
+        <TextField fx:id="password" text="admin"/>
+        <Button onAction="#close" text="Cancel"/>
+    </VBox>
+    <padding>
+        <Insets topRightBottomLeft="5"/>
+    </padding>
+</HBox>

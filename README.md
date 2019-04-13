@@ -8,7 +8,7 @@ AP Project
 Using:
 MySQL-Connector 8, Hibernate Core 5.3.7.Final
 
-MySQL Server - ClearDB(Heroku)
+MySQL Server - ClearDB (Heroku)
 
 ## Screenshots
 <img width="312" alt="2019-02-21 11 53 53" src="https://user-images.githubusercontent.com/32595013/53158649-2a919180-35d5-11e9-8d7f-2c8b2ad764d4.png">
