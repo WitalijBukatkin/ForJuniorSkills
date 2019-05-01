@@ -8,8 +8,11 @@ public class HibernateUtil {
     private static EntityManagerFactory entityManagerFactory = Persistence
             .createEntityManagerFactory("model");
 
-    public static EntityManager createEntityManager() {
-        return entityManagerFactory.createEntityManager();
+    private static EntityManager entityManager = entityManagerFactory
+            .createEntityManager();
+
+    public static EntityManager getEntityManager() {
+        return entityManager;
     }
 
     public static void shutdown(){

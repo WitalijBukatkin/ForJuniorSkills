@@ -9,7 +9,7 @@ import javax.persistence.EntityTransaction;
 
 public class RepositoryUtil {
     protected EntityManager getEntityManager() {
-        return HibernateUtil.createEntityManager();
+        return HibernateUtil.getEntityManager();
     }
 
     protected EntityTransaction getTransaction() {

@@ -7,7 +7,7 @@ import util.HibernateUtil;
 public class Launcher extends Application {
     public static void main(String[] args){
         try{
-            if (HibernateUtil.createEntityManager().isOpen()) {
+            if (HibernateUtil.getEntityManager().isOpen()) {
                 launch();
             }
         } catch (Throwable throwable) {
